@@ -15,10 +15,8 @@ func main() {
 
 	router = gin.Default()
 
-	auth.SetupRoutes(router)
-	user.SetupRoutes(router)
-
-	auth.SetupMiddleware(router)
+	securedApiGroup := auth.SetupAuthentication(router)
+	user.SetupRoutes(securedApiGroup)
 
 	err := router.Run()
 	if err != nil {
